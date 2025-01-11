@@ -1,6 +1,9 @@
 package com.firstspringproject.learn_spring_framework;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import com.firstspringproject.learn_spring_framework.game.GameRunner;
+import com.firstspringproject.learn_spring_framework.game.GamingConsole;
 import com.firstspringproject.learn_spring_framework.game.MarioGame;
 import com.firstspringproject.learn_spring_framework.game.PacManGame;
 import com.firstspringproject.learn_spring_framework.game.SuperContraGame;
@@ -12,12 +15,16 @@ public class App01GamingBasicJava {
 
 		//var game = new MarioGame();
 		//var game = new SuperContraGame();
-		var game = new PacManGame();
+		//var game = new PacManGame();
 		
-		var gameRunner = new GameRunner(game);
-		gameRunner.run();
-
-
+		/*
+		 * var gameRunner = new GameRunner(game); 
+		 * gameRunner.run();
+		 */
+		try(var context = new AnnotationConfigApplicationContext(GamingConfiguration.class)) {
+			context.getBean(GamingConsole.class).up();
+			context.getBean(GameRunner.class).run();
+		}
 	}
 
 }
